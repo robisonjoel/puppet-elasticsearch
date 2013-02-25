@@ -1,6 +1,10 @@
 class elasticsearch {
-
-    #File resources
+	
+	#Variables (will make these parameters later so the class can be parameterized
+	$cluster_name = 'mycluster01'
+	
+	
+	#File resources
 	
 	#Elasticsearch's main config file and the directory its found in
 	file { '/etc/elasticsearch/':
@@ -17,9 +21,9 @@ class elasticsearch {
 	#ElasticSearch .DEB package; this isn't in most repos, so we're copying it down first
 	#here and installing it with the package resource farther down below.
 	file { 'elasticsearch-package':
-	  path => '/tmp/elasticsearch-0.20.5.deb',
+	  path => '/tmp/elasticsearch.deb',
 	  ensure => present,
-	  source => 'puppet:///modules/elasticsearch/elasticsearch-0.20.5.deb',
+	  source => 'puppet:///modules/elasticsearch/elasticsearch.deb',
 	}
     
     #Package resources
@@ -33,7 +37,7 @@ class elasticsearch {
     #Elasticsearch itself
     #The source is the 'elastic-search' package farther above
 	package { 'elasticsearch':
-	  source => '/tmp/elasticsearch-0.20.5.deb',
+	  source => '/tmp/elasticsearch.deb',
 	  name => 'elasticsearch-0.20.5.deb',
 	  ensure => latest,
 	  provider => dpkg,
