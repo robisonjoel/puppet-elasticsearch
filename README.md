@@ -7,7 +7,14 @@ This is for Debian/Ubuntu.
 
 ###Usage
 
-Download the latest .deb package from ElasticSearch's [download page](http://www.elasticsearch.org/download/) and place it in the `files/` directory, naming it `elasticsearch.deb`
+Download the latest .deb package from ElasticSearch's [download page](http://www.elasticsearch.org/download/) and place it in the `files/` directory, naming it `elasticsearch.deb`.
 
+In your `site.pp`, apply the `elasticsearc` class to a node:
+
+<pre>
+node 'elasticsearch-node1' {
+    include elasticsearch
+}
+</pre>
 
 
