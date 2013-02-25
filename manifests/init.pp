@@ -3,7 +3,7 @@ class elasticsearch {
 	#Variables (will make these parameters later so the class can be parameterized
 	#The cluster name
 	$cluster_name = 'mycluster01'
-	#The network interface on which nodes will communicate with each other via multicast
+	#The network interface on which nodes will communicate with with 
 	$bind_interface = 'eth1'
 	
 	
@@ -51,6 +51,7 @@ class elasticsearch {
     
     #ElasticSearch service
     service { 'elasticsearch':
+      enable => true,
       ensure => running,
       require => Package['elasticsearch', 'openjdk-7-jre-headless'],
       subscribe => File['elasticsearch.yml'],
