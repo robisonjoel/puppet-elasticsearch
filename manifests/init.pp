@@ -1,7 +1,10 @@
 class elasticsearch {
 	
 	#Variables (will make these parameters later so the class can be parameterized
+	#The cluster name
 	$cluster_name = 'mycluster01'
+	#The network interface on which nodes will communicate with each other via multicast
+	$bind_interface = 'eth1'
 	
 	
 	#File resources
