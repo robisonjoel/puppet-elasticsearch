@@ -3,7 +3,7 @@ class elasticsearch {
 	#Variables (will make these parameters later so the class can be parameterized
 	#The cluster name
 	$cluster_name = 'mycluster01'
-	#The network interface on which nodes will communicate with with 
+	#The network interface on which nodes will communicate with each other
 	$bind_interface = 'eth1'
 	
 	
