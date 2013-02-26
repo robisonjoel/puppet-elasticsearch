@@ -31,7 +31,7 @@ class elasticsearch {
     
     #Package resources
     
-    #The OpenJDK Java 7 runtime
+    #The OpenJDK Java 7 runtime; ElasticSearch is written in Java and requires this to run
 	package { 'openjdk-7-jre-headless':
 	  ensure => installed,
 	  provider => 'apt',
