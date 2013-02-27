@@ -22,7 +22,7 @@ node 'elasticsearch' {
 }
 </pre>
 
-To apply it to more than 1 machine and have each one be a part of the same cluster, just list more nodes:
+To apply it to more than one machine and have each one be a part of the same cluster, just list more nodes:
 
 <pre>
 node 'elasticsearch1', 'elasticsearch2', 'elasticsearch3', 'elasticsearch4' {
