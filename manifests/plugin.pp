@@ -14,16 +14,12 @@
 #
 # === Examples
 # 
-#   class {
-#     cluster_name     => 'logstash-cluster',
-#     bind_interface   => 'eth1',
-#   }
 #
 #
-# c
-#
-#
-#
+# elasticsearch_plugin { 'paramedic':
+#   plugin_author  => 'karmi'
+#   plugin_name    => 'elasticsearch-paramedic'
+# }
 #
 #
 #
@@ -51,14 +47,20 @@
 #
 #
 
-class elasticsearch::plugin {
+define elasticsearch::plugin (
 
-    define elasticsearch_plugin ($plugin_author, $plugin_name) { "plugin -install $plugin_author/$plugin_name"
+$plugin_author, $plugin_name) 
 
-        exec {
-          cwd => '/usr/share/elasticsearch/bin',
-          creates => '',
+{
+    #Install the plugin via the built-in command ElasticSearch already has
+    exec { "plugin_install_${title}":
+      command => "/usr/share/elasticsearch/bin/plugin -install ${plugin_author}/${plugin_name}",
+      cwd => '/usr/share/elasticsearch/bin',
+      creates  => "/usr/share/elasticsearch/plugins/${plugin_name}.zip", 
+    }
     
-        }
+    notify { "install_notification_${plugin_name}":
+      message => "$plugin_name was installed successfully!",
+      subscribe => Exec["plugin_install_${title}"],
     }
 }
