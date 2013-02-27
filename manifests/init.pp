@@ -6,12 +6,12 @@
 # === Parameters
 # [*cluster_name*]
 #    The name of the ElasticSearch cluster that this node will be a part of. This is used
-#    when automatic multicast node discovery is used, as is the case with ElasticSearch.
+#    when automatic multicast node discovery is used, which is ElasticSearch's default.
 #    Defaults to "mycluster01".    
 #
 # [*bind_interface*]
 #    The network interface on which discovery and inter-node communication will be done.
-#
+#    Defaults to 'eth1'.
 # === Examples
 # 
 #   class {
