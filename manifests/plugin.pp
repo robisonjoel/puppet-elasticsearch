@@ -21,31 +21,6 @@
 #   plugin_name    => 'elasticsearch-paramedic'
 # }
 #
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
 
 define elasticsearch::plugin (
 
