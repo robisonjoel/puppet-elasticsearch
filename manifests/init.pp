@@ -24,7 +24,6 @@ class elasticsearch (
   $cluster_name = 'mycluster01',
   $bind_interface = 'eth1'
 ) {	
-    
     #File resources
     
     #Elasticsearch's main config file and the directory its found in
@@ -59,7 +58,7 @@ class elasticsearch (
     #The source is the 'elastic-search' package farther above
     package { 'elasticsearch':
       source => '/tmp/elasticsearch.deb',
-      name => 'elasticsearch-0.20.5.deb',
+      name => 'elasticsearch',
       ensure => installed,
       provider => dpkg,
       require => [Package['openjdk-7-jre-headless'], File['elasticsearch-package']],
