@@ -22,6 +22,8 @@ node 'elasticsearch' {
 }
 </pre>
 
+The node's name in the ElasticSearch cluster (as other ElasticSearch nodes will see it) defaults to the machine's hostname and doesn't need to be set.
+
 To apply it to more than one machine and have each one be a part of the same cluster, just list more nodes:
 
 <pre>
