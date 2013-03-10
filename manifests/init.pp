@@ -23,6 +23,7 @@
 class elasticsearch (
   $cluster_name = 'mycluster01',
   $bind_interface = 'eth1'
+  $elasticsearch_version ='0.20.5'
 ) {	
 
 
@@ -36,12 +37,12 @@ include elasticsearch::config, elasticsearch::install, elasticsearch::service
 class elasticsearch::install {
 
 
-    #ElasticSearch .DEB package; this isn't in most repos, so we're copying it down first
-    #here and installing it with the package resource farther down below.
-    file { 'elasticsearch-package':
-      path => '/tmp/elasticsearch.deb',
-      ensure => present,
-      source => 'puppet:///modules/elasticsearch/elasticsearch.deb',
+    #ElasticSearch .DEB package; this isn't in most repos, so we're copying it down from 
+    #their site first and installing it with the package resource farther down below.
+    exec { 'download-elasticsearch':
+      cwd => '/tmp',
+      command => 'wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${elasticsearch::elasticsearch_version}',
+      creates => '/tmp/elasticsearch-${elasticsearch::elasticsearch_version}.deb'
     }
 
     #Package resources
@@ -53,9 +54,9 @@ class elasticsearch::install {
     }
 
     #Elasticsearch itself
-    #The source is the 'elastic-search' package farther above
+    #The source is the 'download-elasticsearch' exec resource farther above
     package { 'elasticsearch':
-      source => '/tmp/elasticsearch.deb',
+      source => '/tmp/elasticsearch-${elasticsearch::elasticsearch_version}.deb',
       name => 'elasticsearch',
       ensure => installed,
       provider => dpkg,
