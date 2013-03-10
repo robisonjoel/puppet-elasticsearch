@@ -12,6 +12,11 @@
 # [*bind_interface*]
 #    The network interface on which discovery and inter-node communication will be done.
 #    Defaults to 'eth1'.
+#
+# [*elasticsearch_version*]
+#    The version of ElasticSearch you would like to install. Defaults to 0.20.5, which is
+#    the latest stable version as of March 2013.
+#
 # === Examples
 # 
 #   class {
@@ -25,17 +30,14 @@ class elasticsearch (
   $bind_interface = 'eth1',
   $elasticsearch_version ='0.20.5'
 ) {	
-
-
-include elasticsearch::config, elasticsearch::install, elasticsearch::service 
-
-
+    
+    #Include the rest of the manifest's classes
+    include elasticsearch::config, elasticsearch::install, elasticsearch::service 
         
 }
 
-
+#Install packages for ElasticSearch and its prerequite, Java
 class elasticsearch::install {
-
 
     #ElasticSearch .DEB package; this isn't in most repos, so we're copying it down from 
     #their site first and installing it with the package resource farther down below.
@@ -47,7 +49,7 @@ class elasticsearch::install {
     }
 
     #Package resources
-
+    
     #The OpenJDK Java 7 runtime; ElasticSearch is written in Java and requires this to run
     package { 'openjdk-7-jre-headless':
       ensure => installed,
@@ -66,11 +68,11 @@ class elasticsearch::install {
 
 }
 
-
+#Config folder and YAML file
 class elasticsearch::config {
 
     #File resources
-    
+
     #Elasticsearch's main config file and the directory its found in
     file { '/etc/elasticsearch/':
       ensure => directory,
@@ -82,13 +84,10 @@ class elasticsearch::config {
       content => template('elasticsearch/elasticsearch.yml.erb'),
       require => Class['elasticsearch::install'],
     }
-
-
+    
 }
 
-
-
-
+#The service for ElasticSearch itself
 class elasticsearch::service {
 
     #Service resources
@@ -103,7 +102,7 @@ class elasticsearch::service {
 
 }
 
-
+#A class to remove and undo every resource that's defined above
 class elasticsearch::remove {
 
     service { 'elasticsearch-stop':
