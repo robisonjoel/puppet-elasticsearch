@@ -39,6 +39,6 @@ node 'elasticsearch1', 'elasticsearch2', 'elasticsearch3', 'elasticsearch4' {
 
 ####Parameters
 
-* `$cluster_name`: The name for the node cluster
-* `$bind_interface`: The network interface ElasticSearch will use to communicate with other the ElasticSearch nodes on (**eth0**, **eth1**, etc.)
-
+* `$cluster_name`: The name for the node cluster. Defaults to **mycluster01**.
+* `$bind_interface`: The network interface ElasticSearch will use to communicate with other the ElasticSearch nodes on (**eth0**, **eth1**, etc.). Defaults to **eth1**.
+* `elasticsearch_version`: The version of ElasticSearch to download and install. Defaults to **0.20.5**, which is the latest stable version as of March 2013.
