@@ -22,7 +22,7 @@
 #
 class elasticsearch (
   $cluster_name = 'mycluster01',
-  $bind_interface = 'eth1'
+  $bind_interface = 'eth1',
   $elasticsearch_version ='0.20.5'
 ) {	
 
@@ -41,8 +41,9 @@ class elasticsearch::install {
     #their site first and installing it with the package resource farther down below.
     exec { 'download-elasticsearch':
       cwd => '/tmp',
-      command => 'wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${elasticsearch::elasticsearch_version}',
-      creates => '/tmp/elasticsearch-${elasticsearch::elasticsearch_version}.deb'
+      path => '/usr/bin/',
+      command => "wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${elasticsearch::elasticsearch_version}.deb",
+      creates => "/tmp/elasticsearch-${elasticsearch::elasticsearch_version}.deb",
     }
 
     #Package resources
@@ -56,7 +57,7 @@ class elasticsearch::install {
     #Elasticsearch itself
     #The source is the 'download-elasticsearch' exec resource farther above
     package { 'elasticsearch':
-      source => '/tmp/elasticsearch-${elasticsearch::elasticsearch_version}.deb',
+      source => "/tmp/elasticsearch-${elasticsearch::elasticsearch_version}.deb",
       name => 'elasticsearch',
       ensure => installed,
       provider => dpkg,
