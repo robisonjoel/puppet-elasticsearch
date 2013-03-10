@@ -48,11 +48,11 @@ node.name: <%= hostname %>
 #
 # Allow this node to be eligible as a master node (enabled by default):
 #
-# node.master: true
+node.master: <%= scope.lookupvar('elasticsearch::node_is_master') %>
 #
 # Allow this node to store data (enabled by default):
 #
-# node.data: true
+node.data: <%= scope.lookupvar('elasticsearch::node_is_data') %>
 
 # You can exploit these settings to design advanced cluster topologies.
 #
@@ -84,7 +84,7 @@ node.name: <%= hostname %>
 # for customized shard allocation filtering, or allocation awareness. An attribute
 # is a simple key value pair, similar to node.key: value, here is an example:
 #
-# node.rack: rack314
+node.rack: <%= scope.lookupvar('elasticsearch::node_rack') %>
 
 # By default, multiple nodes are allowed to start from the same installation location
 # to disable it, set the following:
@@ -106,11 +106,11 @@ node.name: <%= hostname %>
 
 # Set the number of shards (splits) of an index (5 by default):
 #
-# index.number_of_shards: 5
+index.number_of_shards: <%= scope.lookupvar('elasticsearch::number_of_shards') %>
 
 # Set the number of replicas (additional copies) of an index (1 by default):
 #
-# index.number_of_replicas: 1
+index.number_of_replicas: <%= scope.lookupvar('elasticsearch::number_of_replicas') %>
 
 # Note, that for development on a local machine, with small indices, it usually
 # makes sense to "disable" the distributed features:

@@ -28,7 +28,15 @@
 class elasticsearch (
   $cluster_name = 'mycluster01',
   $bind_interface = 'eth1',
-  $elasticsearch_version ='0.20.5'
+  $elasticsearch_version ='0.20.5',
+  $number_of_shards = '5',
+  $number_of_replicas = '2',
+  $node_is_master = 'true',
+  $node_is_data = 'true',
+  $node_rack = 'rack01'#,
+  #path to data directory
+  #path to temp directory
+  #path to log file
 ) {	
     
     #Include the rest of the manifest's classes
@@ -84,6 +92,12 @@ class elasticsearch::config {
       content => template('elasticsearch/elasticsearch.yml.erb'),
       require => Class['elasticsearch::install'],
     }
+    
+    #file resource for index data location
+    
+    #file resource for temp data location
+    
+    #file resource for log data location
     
 }
 
