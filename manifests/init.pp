@@ -24,19 +24,17 @@ class elasticsearch (
   $cluster_name = 'mycluster01',
   $bind_interface = 'eth1'
 ) {	
-    #File resources
-    
-    #Elasticsearch's main config file and the directory its found in
-    file { '/etc/elasticsearch/':
-      ensure => directory,
-    }
-    
-    file { 'elasticsearch.yml':
-      path => '/etc/elasticsearch/elasticsearch.yml',
-      ensure => file,
-      content => template('elasticsearch/elasticsearch.yml.erb'),
-      require => File['/etc/elasticsearch/'],
-    }
+
+
+include elasticsearch::config, elasticsearch::install, elasticsearch::service 
+
+
+        
+}
+
+
+class elasticsearch::install {
+
 
     #ElasticSearch .DEB package; this isn't in most repos, so we're copying it down first
     #here and installing it with the package resource farther down below.
@@ -61,8 +59,35 @@ class elasticsearch (
       name => 'elasticsearch',
       ensure => installed,
       provider => dpkg,
-      require => [Package['openjdk-7-jre-headless'], File['elasticsearch-package']],
+      require => Package['openjdk-7-jre-headless'],
     }
+
+}
+
+
+class elasticsearch::config {
+
+    #File resources
+    
+    #Elasticsearch's main config file and the directory its found in
+    file { '/etc/elasticsearch/':
+      ensure => directory,
+    }
+    
+    file { 'elasticsearch.yml':
+      path => '/etc/elasticsearch/elasticsearch.yml',
+      ensure => file,
+      content => template('elasticsearch/elasticsearch.yml.erb'),
+      require => Class['elasticsearch::install'],
+    }
+
+
+}
+
+
+
+
+class elasticsearch::service {
 
     #Service resources
 
@@ -70,8 +95,8 @@ class elasticsearch (
     service { 'elasticsearch':
       enable => true,
       ensure => running,
-      require => Package['elasticsearch', 'openjdk-7-jre-headless'],
-      subscribe => File['elasticsearch.yml'],
+      require => Class['elasticsearch::config', 'elasticsearch::install'],
+      subscribe => Class['elasticsearch::config'],
     }
-        
+
 }
