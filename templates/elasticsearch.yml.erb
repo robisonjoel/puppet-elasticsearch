@@ -154,15 +154,15 @@ index.number_of_replicas: <%= scope.lookupvar('elasticsearch::number_of_replicas
 # the locations (a la RAID 0) on a file level, favouring locations with most free
 # space on creation. For example:
 #
-#path.data: /disk/trump/elasticsearch
+path.data: <%= scope.lookupvar('elasticsearch::data_dir_path') %>
 
 # Path to temporary files:
 #
-#path.work: /disk/trump/elasticsearch/tmp
+path.work: <%= scope.lookupvar('elasticsearch::temp_dir_path') %>
 
 # Path to log files:
 #
-# path.logs: /path/to/logs
+path.logs: <%= scope.lookupvar('elasticsearch::log_dir_path') %>
 
 # Path to where plugins are installed:
 #
