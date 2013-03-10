@@ -100,3 +100,41 @@ class elasticsearch::service {
     }
 
 }
+
+
+class elasticsearch::remove {
+
+    service { 'elasticsearch-stop':
+      name => 'elasticsearch',
+      enable => false,
+      ensure => stopped,
+    }
+
+    file { 'elasticsearch.yml-remove':
+      path => '/etc/elasticsearch/elasticsearch.yml',
+      ensure => absent,
+      require => Service['elasticsearch-stop'],
+    }
+    
+    
+     file { '/etc/elasticsearch/-remove':
+      path => '/etc/elasticsearch',
+      ensure => absent,
+      require => File['elasticsearch.yml-remove'],
+    }
+    
+    package { 'elasticsearch-uninstall':
+      source => '/tmp/elasticsearch.deb',
+      name => 'elasticsearch',
+      ensure => absent,
+      provider => dpkg,
+      require => File['/etc/elasticsearch/-remove'],
+    }
+    
+    file { 'elasticsearch-debfile-remove':
+      path => '/tmp/elasticsearch.deb',
+      ensure => absent,
+      require => Package['elasticsearch-uninstall'],
+    }
+
+}
