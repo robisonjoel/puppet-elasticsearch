@@ -45,7 +45,7 @@ node 'elasticsearch1', 'elasticsearch2', 'elasticsearch3', 'elasticsearch4' {
 
 * `$cluster_name`: The name for the node cluster. Defaults to **mycluster01**.
 * `$bind_interface`: The network interface ElasticSearch will use to communicate with other the ElasticSearch nodes on ( **eth0**, **eth1**, etc.). Defaults to **eth1**.
-`$elasticsearch_version`: The version of ElasticSearch you would like to install. Defaults to **0.20.5**, which is the latest stable version as of March 2013.
+* `$elasticsearch_version`: The version of ElasticSearch you would like to install. Defaults to **0.20.5**, which is the latest stable version as of March 2013.
 * `$number_of_shards`: The number of shards each index gets broken into. Defaults to **5**.
 * `$number_of_replicas`: The number of additional copies of each shard that are made. Defaults to **2**, giving a total of 3 copies of each shard.
 * `$node_is_master` Whether the node is eligible to be elected a master node, coordinating traffic in the cluster. Defaults to `true`.
