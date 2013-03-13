@@ -7,8 +7,6 @@ This is for Debian/Ubuntu.
 
 ###Usage
 
-Download the latest .deb package from ElasticSearch's [download page](http://www.elasticsearch.org/download/) and place it in the `files/` directory, naming it `elasticsearch.deb`.
-
 To apply the `elasticsearch` class to a node, in your `site.pp`, set the `cluster_name` and `bind_interface` parameters:
 
 <pre>
@@ -19,10 +17,13 @@ node 'elasticsearch' {
     bind_interface  => 'eth1',
     number_of_shards => '6',
     number_of_replicas => '2',
+    elasticsearch_verison = '0.20.5',
   }
 
 }
 </pre>
+
+As newer versions of ElasticSearch are released, you can update the `elasticsearch_version` parameter to install newer versions.
 
 The node's name in the ElasticSearch cluster (as other ElasticSearch nodes will see it) defaults to the machine's hostname and doesn't need to be set.
 
@@ -36,6 +37,7 @@ node 'elasticsearch1', 'elasticsearch2', 'elasticsearch3', 'elasticsearch4' {
     bind_interface  => 'eth1',
     number_of_shards => '6',
     number_of_replicas => '2',
+    elasticsearch_verison = '0.20.5',
   }
 
 }
