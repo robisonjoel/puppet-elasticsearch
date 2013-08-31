@@ -321,6 +321,7 @@ network.host: _<%= scope.lookupvar('elasticsearch::bind_interface') %>:ipv4_
 # 1. Disable multicast discovery (enabled by default):
 #
 # discovery.zen.ping.multicast.enabled: true
+discovery.zen.ping.multicast.enabled: <%= scope.lookupvar('elasticsearch::multicast_enabled') %>
 #
 # 2. Configure an initial list of master nodes in the cluster
 #    to perform discovery when new nodes (master or data) are started:
