@@ -72,7 +72,8 @@ class elasticsearch (
   $data_dir_path = '/var/elasticsearch/',
   $temp_dir_path = '/tmp/elasticsearch/',
   $log_dir_path = '/var/log/elasticsearch/',
-  $static_hosts = ''
+  $static_hosts = '',
+  $multicast_enabled = 'true'
 ) {	
     
     #Include the rest of the manifest's classes
