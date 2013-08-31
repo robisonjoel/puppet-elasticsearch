@@ -326,6 +326,7 @@ network.host: _<%= scope.lookupvar('elasticsearch::bind_interface') %>:ipv4_
 #    to perform discovery when new nodes (master or data) are started:
 #
 # discovery.zen.ping.unicast.hosts: ["localhost"]
+discovery.zen.ping.unicast.hosts: <%= scope.lookupvar('elasticsearch::static_hosts') %>
 
 # EC2 discovery allows to use AWS EC2 API in order to perform discovery.
 #
