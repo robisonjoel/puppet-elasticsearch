@@ -71,7 +71,8 @@ class elasticsearch (
   $node_rack = 'rack01',
   $data_dir_path = '/var/elasticsearch/',
   $temp_dir_path = '/tmp/elasticsearch/',
-  $log_dir_path = '/var/log/elasticsearch/'
+  $log_dir_path = '/var/log/elasticsearch/',
+  $static_hosts = ''
 ) {	
     
     #Include the rest of the manifest's classes
